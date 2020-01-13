@@ -12,3 +12,6 @@ edition = "2018"
 default = []
 fake = []
 __doc_cfg = []
+
+[package.metadata.docs.rs]
+features = ["fake", "__doc_cfg"]
