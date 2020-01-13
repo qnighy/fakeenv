@@ -8,7 +8,7 @@ A simple wrapper of `std::env` which allows faking the environment.
 
 ## Using the real environment
 
-```
+```rust
 use fakeenv::EnvStore;
 
 fn answer(env: &EnvStore) -> i32 {
@@ -42,7 +42,7 @@ Then you can generate a fake environment using [`EnvStore::fake`]:
 
 [`EnvStore::fake`]: struct.EnvStore.html#method.fake
 
-```
+```rust
 use fakeenv::EnvStore;
 
 fn answer(env: &EnvStore) -> i32 {
