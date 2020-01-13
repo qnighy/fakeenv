@@ -1,10 +1,16 @@
 [package]
 name = "fakeenv"
+description = "A simple wrapper of `std::env` which allows faking the environment"
 version = "0.1.0"
 authors = ["Masaki Hara <ackie.h.gmai@gmail.com>"]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+# homepage = "https://github.com/qnighy/fakeenv"
+repository = "https://github.com/qnighy/fakeenv"
+readme = "README.md"
+keywords = ["testing", "mock"]
+categories = ["development-tools", "development-tools::testing"]
+license = "MIT OR Apache-2.0"
 
 [dependencies]
 
@@ -15,3 +21,7 @@ __doc_cfg = []
 
 [package.metadata.docs.rs]
 features = ["fake", "__doc_cfg"]
+
+[badges]
+is-it-maintained-issue-resolution = { repository = "qnighy/fakeenv" }
+is-it-maintained-open-issues = { repository = "qnighy/fakeenv" }
