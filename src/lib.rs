@@ -56,6 +56,24 @@
 //! # #[cfg(not(feature = "fake"))]
 //! # fn main() {}
 //! ```
+//!
+//! ## Faking user directories
+//!
+//! The `dirs` feature enables faking the [`dirs`] functions.
+//!
+//! [`dirs`]: https://docs.rs/dirs/2.*/dirs/index.html
+//!
+//! ```toml
+//! [dependencies]
+//! fakeenv = { version = "0.1.0", features = ["dirs"] }
+//! ```
+//!
+//! ```rust
+//! # use fakeenv::EnvStore;
+//! let env = EnvStore::real();
+//! # #[cfg(feature = "dirs")]
+//! println!("home directory = {:?}", env.home_dir());
+//! ```
 
 #![cfg_attr(feature = "__doc_cfg", feature(doc_cfg))]
 #![warn(missing_docs)]
@@ -72,6 +90,9 @@ use std::collections::{hash_map, HashMap};
 use std::sync::{Arc, RwLock};
 
 pub use std::env::VarError;
+
+#[cfg(feature = "dirs")]
+mod dirs_store;
 
 /// A handle to either the real environment or a fake environment.
 ///
@@ -194,7 +215,14 @@ impl EnvStore {
             EnvStoreKind::Real => {
                 let current_dir = env::current_dir().ok();
                 let vars = env::vars_os().collect::<HashMap<_, _>>();
-                EnvStoreInner { current_dir, vars }
+                #[cfg(feature = "dirs")]
+                let dirs = dirs_store::DirsStore::from_real();
+                EnvStoreInner {
+                    current_dir,
+                    vars,
+                    #[cfg(feature = "dirs")]
+                    dirs,
+                }
             }
             EnvStoreKind::Fake(inner) => {
                 let inner = inner.read().unwrap();
@@ -585,6 +613,8 @@ enum EnvStoreKind {
 struct EnvStoreInner {
     current_dir: Option<PathBuf>,
     vars: HashMap<OsString, OsString>,
+    #[cfg(feature = "dirs")]
+    dirs: crate::dirs_store::DirsStore,
 }
 
 /// An iterator over a snapshot of the environment variables of this process.

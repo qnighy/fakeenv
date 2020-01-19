@@ -30,7 +30,15 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: test
-          args: --all --no-default-features --features fake,__doc_cfg
+          args: --all --no-default-features --features dirs
+      - uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --all --no-default-features --features dirs,fake
+      - uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --all --no-default-features --features dirs,fake,__doc_cfg
         if: matrix.rust == 'nightly'
 
   fmt:

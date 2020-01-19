@@ -13,14 +13,15 @@ categories = ["development-tools", "development-tools::testing"]
 license = "MIT OR Apache-2.0"
 
 [dependencies]
+dirs = { version = "2.0.2", optional = true }
 
 [features]
-default = []
+default = ["dirs", "fake"]
 fake = []
 __doc_cfg = []
 
 [package.metadata.docs.rs]
-features = ["fake", "__doc_cfg"]
+features = ["dirs", "fake", "__doc_cfg"]
 
 [badges]
 is-it-maintained-issue-resolution = { repository = "qnighy/fakeenv" }

@@ -55,3 +55,19 @@ fn main() {
     assert_eq!(answer(&env), 42);
 }
 ```
+
+## Faking user directories
+
+The `dirs` feature enables faking the [`dirs`] functions.
+
+[`dirs`]: https://docs.rs/dirs/2.*/dirs/index.html
+
+```toml
+[dependencies]
+fakeenv = { version = "0.1.0", features = ["dirs"] }
+```
+
+```rust
+let env = EnvStore::real();
+println!("home directory = {:?}", env.home_dir());
+```
